@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Home from './routes/home/home.component';
+import CreateShow from './routes/create_show/create_show.component';
 
 function App() {
   const [shows, setShows] = useState([]);
@@ -18,16 +21,10 @@ function App() {
   }, []);
 
   return (
-    <div >
-      <h1>List of Shows</h1>
-      <ul>
-        {shows.map((show) => (
-          <li key={show.id}>
-            {show.title} - {show.description}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home shows={shows} />} />
+      <Route path="/create" element={<CreateShow shows={shows} />} />
+    </Routes>
   );
 }
 
