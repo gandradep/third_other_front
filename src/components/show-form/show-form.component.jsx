@@ -31,13 +31,13 @@ const ShowForm = ({shows}) => {
 
   const handleCheckboxChange = (event) => {
     setIsCreatingNewVenue(event.target.checked);
-    console.log(showData);
+
   };
 
   const handleShowChange = (event) => {
     const { name, value } = event.target;
     setShowData({ ...showData, [name]: value });
-    console.log(showData)
+
   };
 
   const handleVenueChange = (event) => {
@@ -71,6 +71,10 @@ const ShowForm = ({shows}) => {
     });
   };
 
+  const uniqueVenues = Array.from(
+    new Map(shows.map(show => [show.venue.id, show.venue])).values()
+  );
+
 
   return(
     <>
@@ -100,9 +104,9 @@ const ShowForm = ({shows}) => {
           <label htmlFor="venue">Choose Venue: </label>
           <select name="venue_id" id="venue" value={showData.venue_id} onChange={handleShowChange} disabled={isCreatingNewVenue}>
 
-            {shows.map((show) => (
-                <option key={show.venue.id} value={show.venue.id}>
-                  {show.venue.name}
+            {uniqueVenues.map((venue) => (
+                <option key={venue.id} value={venue.id}>
+                  {venue.name}
                 </option>
               ))}
           </select>
