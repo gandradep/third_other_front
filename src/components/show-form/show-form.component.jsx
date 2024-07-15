@@ -21,16 +21,17 @@ const ShowForm = ({shows}) => {
 
   // useEffect to set default value for venue_id on component mount
   useEffect(() => {
-    if (shows.length > 0) {
+    if (shows.length > 0 && !isCreatingNewVenue) {
       setShowData(prevShowData => ({
         ...prevShowData,
         venue_id: shows[0].venue.id // Set the first venue ID as default
       }));
     }
-  }, [shows]);
+  }, [shows, isCreatingNewVenue]);
 
   const handleCheckboxChange = (event) => {
     setIsCreatingNewVenue(event.target.checked);
+
 
   };
 
@@ -43,6 +44,7 @@ const ShowForm = ({shows}) => {
   const handleVenueChange = (event) => {
     const { name, value } = event.target;
     setNewVenueData({ ...newVenueData, [name]: value });
+
   };
 
   const handleSubmit = (event) => {
@@ -52,7 +54,7 @@ const ShowForm = ({shows}) => {
     if (isCreatingNewVenue) {
       showPayload.new_venue = newVenueData;
     }
-
+    console.log(showPayload);
     fetch('http://localhost:3001/shows', {
       method: 'POST',
       headers: {
@@ -128,10 +130,6 @@ const ShowForm = ({shows}) => {
           <button type="submit">Create Show</button>
         </div>
       </form>
-      {/* {shows.map((show) => {
-      console.log(show.venue.id); // Log show.venue.id here
-      return null; // or another element if needed
-    })} */}
     </>
   );
 };
