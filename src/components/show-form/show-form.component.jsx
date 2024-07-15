@@ -44,7 +44,6 @@ const ShowForm = ({shows}) => {
   const handleVenueChange = (event) => {
     const { name, value } = event.target;
     setNewVenueData({ ...newVenueData, [name]: value });
-
   };
 
   const handleSubmit = (event) => {
