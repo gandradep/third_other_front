@@ -8,7 +8,8 @@ const Home = ({shows}) => {
       <ul>
         {shows.map((show, index) => (
           <li key={index}>
-            {show.title} - {show.description}
+            <p>{show.title} - {show.description}</p>
+            <p>{show.event_date} - {show.time_zone}</p>
           </li>
         ))}
       </ul>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import VenueForm from '../venue-form/venue-form.component';
+import moment from 'moment-timezone';
 
 const ShowForm = ({shows}) => {
   const [isCreatingNewVenue, setIsCreatingNewVenue] = useState(false);
@@ -9,6 +10,7 @@ const ShowForm = ({shows}) => {
     url_flyer:'',
     show_recording_link:'',
     event_date:'',
+    time_zone: '', // Default to UTC
     venue_id:''
   });
 
@@ -31,14 +33,12 @@ const ShowForm = ({shows}) => {
 
   const handleCheckboxChange = (event) => {
     setIsCreatingNewVenue(event.target.checked);
-
-
   };
 
   const handleShowChange = (event) => {
     const { name, value } = event.target;
     setShowData({ ...showData, [name]: value });
-
+    console.log(showData)
   };
 
   const handleVenueChange = (event) => {
@@ -48,12 +48,16 @@ const ShowForm = ({shows}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const showPayload = { ...showData };
 
+    const showPayload = {
+      ...showData,
+    };
+    console.log("before post:")
+    console.log(showPayload)
     if (isCreatingNewVenue) {
       showPayload.new_venue = newVenueData;
     }
-    console.log(showPayload);
+
     fetch('http://localhost:3001/shows', {
       method: 'POST',
       headers: {
@@ -98,7 +102,28 @@ const ShowForm = ({shows}) => {
         </div>
         <div>
           <label htmlFor="event_date">Event Date:</label>
-          <input type="datetime-local" id="event_date" name="event_date" value={showData.event_date} onChange={handleShowChange} />
+          <input
+            type="datetime-local"
+            id="event_date"
+            name="event_date"
+            value={showData.event_date}
+            onChange={handleShowChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="time_zone">Time Zone:</label>
+          <select
+            id="time_zone"
+            name="time_zone"
+            value={showData.time_zone}
+            onChange={handleShowChange}
+          >
+            {moment.tz.names().map((tz) => (
+              <option key={tz} value={tz}>
+                {tz}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>
