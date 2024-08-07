@@ -49,11 +49,14 @@ const ShowForm = ({shows}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const localEventDate = moment.tz(showData.event_date, showData.time_zone);
+    const utcEventDate = localEventDate.utc().format(); // ISO 8601 format
+
     const showPayload = {
       ...showData,
+      event_date: utcEventDate,
     };
-    console.log("before post:")
-    console.log(showPayload)
+
     if (isCreatingNewVenue) {
       showPayload.new_venue = newVenueData;
     }

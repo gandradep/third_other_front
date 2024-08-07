@@ -12,6 +12,8 @@ function App() {
         const response = await fetch('http://localhost:3001/');
         const data = await response.json();
         setShows(data);
+
+
       } catch (error) {
         console.error('Error fetching shows: ', error);
       }
