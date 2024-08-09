@@ -8,7 +8,12 @@ const Home = ({ shows }) => {
       <ul>
         {shows.map((show, index) => {
           // Convert event_date from UTC to the specified time_zone
-          const localDate = moment.utc(show.event_date).tz(show.time_zone).format('YYYY-MM-DD HH:mm:ss');
+          const eventDate = show.event_date ? show.event_date : '';
+          const timeZone = show.time_zone ? show.time_zone : 'UTC';
+          // Convert event_date from UTC to the specified time_zone
+          const localDate = eventDate
+            ? moment.utc(eventDate).tz(timeZone, true).format('YYYY-MM-DD HH:mm:ss')
+            : 'No date available';
 
           return (
             <li key={index}>
@@ -23,4 +28,5 @@ const Home = ({ shows }) => {
 }
 
 export default Home;
+
 
