@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import VenueForm from '../venue-form/venue-form.component';
 import moment from 'moment-timezone';
+import { useNavigate } from 'react-router-dom';
 
 const ShowForm = ({shows}) => {
+  const navigate = useNavigate();
   const [isCreatingNewVenue, setIsCreatingNewVenue] = useState(false);
   const [showData, setShowData] = useState({
     title:'',
@@ -72,6 +74,7 @@ const ShowForm = ({shows}) => {
     .then(data => {
       console.log('Success:', data);
       // Handle success response (e.g., redirect to the show page or display a success message)
+      navigate(`/performance/new?show_id=${data.id}`);
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -98,10 +101,6 @@ const ShowForm = ({shows}) => {
         <div>
           <label htmlFor="url_flyer">URL Flyer:</label>
           <input type="text" id="url_flyer" name="url_flyer" value={showData.url_flyer} onChange={handleShowChange} />
-        </div>
-        <div>
-          <label htmlFor="show_recording_link">Show Recording Link:</label>
-          <input type="text" id="show_recording_link" name="show_recording_link" value={showData.show_recording_link} onChange={handleShowChange} />
         </div>
         <div>
           <label htmlFor="event_date">Event Date:</label>

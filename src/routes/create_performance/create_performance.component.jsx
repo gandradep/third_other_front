@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PerformanceForm = ({ shows }) => {
+const CreatePerformance = () => {
   return (
     <div>
       <h1>List of performances</h1>
@@ -9,4 +9,4 @@ const PerformanceForm = ({ shows }) => {
   );
 }
 
-export default PerformanceForm;
+export default CreatePerformance;

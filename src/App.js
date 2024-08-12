@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './routes/home/home.component';
 import CreateShow from './routes/create_show/create_show.component';
+import CreatePerformance from './routes/create_performance/create_performance.component';
 
 function App() {
   const [shows, setShows] = useState([]);
@@ -26,6 +27,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home shows={shows} />} />
       <Route path="/create" element={<CreateShow shows={shows} />} />
+      <Route path="/performance/new" element={<CreatePerformance />} />
     </Routes>
   );
 }
