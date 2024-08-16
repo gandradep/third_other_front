@@ -30,7 +30,7 @@ function App() {
       <Route path="/" element={<Home shows={shows} />} />
       <Route path="/admin" element={<AdminMenu />} />
       <Route path="/create" element={<CreateShow shows={shows} />} />
-      <Route path="/editShow" element={<EditShow shows={shows} />} />
+      <Route path="/editShow" element={<EditShow shows={shows} setShows={setShows} />} />
       <Route path="/performance/new" element={<CreatePerformance />} />
     </Routes>
   );
