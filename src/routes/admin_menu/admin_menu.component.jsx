@@ -18,7 +18,7 @@ const AdminMenu = () => {
           <button onClick={ () => handleNavigation('/editShow')}>Edit Shows</button>
         </li>
         <li>
-          <button>Edit Venue</button>
+          <button onClick={ () => handleNavigation('/editVenue')}>Edit Venue</button>
         </li>
         <li>
           <button>Edit Artist</button>

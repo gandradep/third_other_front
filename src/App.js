@@ -5,6 +5,7 @@ import CreateShow from './routes/create_show/create_show.component';
 import CreatePerformance from './routes/create_performance/create_performance.component';
 import AdminMenu from './routes/admin_menu/admin_menu.component';
 import EditShow from './routes/edit_shows/edit_shows.component';
+import VenueList from './routes/edit_venue/edit_venue.component';
 
 function App() {
   const [shows, setShows] = useState([]);
@@ -32,6 +33,7 @@ function App() {
       <Route path="/create" element={<CreateShow shows={shows} />} />
       <Route path="/editShow" element={<EditShow shows={shows} setShows={setShows} />} />
       <Route path="/performance/new" element={<CreatePerformance />} />
+      <Route path="/editVenue" element={<VenueList/>}/>
     </Routes>
   );
 }
