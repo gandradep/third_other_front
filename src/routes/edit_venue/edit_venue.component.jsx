@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import NavAdmin from '../../components/nav-admin/nav-admin-component';
 
 
 const VenueList = () => {
@@ -64,6 +65,7 @@ const VenueList = () => {
   }
   return (
     <div>
+      <NavAdmin />
       <h1>Venues</h1>
       {venues.map(venue => (
         <div key={venue.id}>

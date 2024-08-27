@@ -1,4 +1,5 @@
 import React from 'react';
+import NavAdmin from '../../components/nav-admin/nav-admin-component';
 
 const EditShow = ({ shows, setShows }) => {
 
@@ -27,6 +28,7 @@ const EditShow = ({ shows, setShows }) => {
   };
   return (
     <div>
+      <NavAdmin />
       <h1>Edit Shows</h1>
       <ul>
         {shows.map((show, index) => {
