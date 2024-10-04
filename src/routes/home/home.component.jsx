@@ -19,6 +19,7 @@ const Home = ({ shows }) => {
             <li key={index}>
               <p>{show.title} - {show.description}</p>
               <p>{localDate} - {show.time_zone}</p>
+              <p>{show.venue.name} - {show.venue.city}</p>
             </li>
           );
         })}
