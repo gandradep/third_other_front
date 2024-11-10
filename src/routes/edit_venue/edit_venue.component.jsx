@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NavAdmin from '../../components/nav-admin/nav-admin-component';
 
 
-const VenueList = () => {
+const VenueList = ({refreshShows}) => {
   const [venues, setVenues] = useState([]);
   const [editingVenue, setEditingVenue] = useState(null);
 
@@ -35,7 +35,6 @@ const VenueList = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const bodyData = { venue: editingVenue};
-    console.log('Request body:', JSON.stringify(bodyData));
 
     try{
       const response = await fetch(`http://localhost:3001/venues/${editingVenue.id}`, {
@@ -47,10 +46,9 @@ const VenueList = () => {
         body: JSON.stringify(bodyData),
       });
       if (response.ok) {
-        const updatedVenues = venues.map(venue =>
-          venue.id === editingVenue.id ? editingVenue : venue
-        );
-        setVenues(updatedVenues);
+
+        await refreshShows();
+
         setEditingVenue(null);
       } else {
         throw new Error('Failed to update venue');

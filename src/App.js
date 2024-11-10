@@ -10,19 +10,17 @@ import VenueList from './routes/edit_venue/edit_venue.component';
 function App() {
   const [shows, setShows] = useState([]);
 
+  const fetchShows = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/shows');
+      const data = await response.json();
+      setShows(data);
+    } catch (error) {
+      console.error('Error fetching shows: ', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchShows = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/');
-        const data = await response.json();
-        setShows(data);
-
-
-      } catch (error) {
-        console.error('Error fetching shows: ', error);
-      }
-    };
-
     fetchShows();
   }, []);
 
@@ -31,9 +29,9 @@ function App() {
       <Route path="/" element={<Home shows={shows} />} />
       <Route path="/admin" element={<AdminMenu />} />
       <Route path="/create" element={<CreateShow shows={shows} />} />
-      <Route path="/editShow" element={<EditShow shows={shows} setShows={setShows} />} />
+      <Route path="/editShow" element={<EditShow shows={shows} setShows={setShows} refreshShows={fetchShows} />} />
       <Route path="/performance/new" element={<CreatePerformance />} />
-      <Route path="/editVenue" element={<VenueList/>}/>
+      <Route path="/editVenue" element={<VenueList refreshShows={fetchShows} />}/>
     </Routes>
   );
 }
