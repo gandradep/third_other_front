@@ -12,10 +12,13 @@ const AdminMenu = () => {
       <h1>Admin Menu</h1>
       <ul>
         <li>
-          <button onClick={ () => handleNavigation('/create')}>Create Show</button>
+          <button onClick={ () => handleNavigation('/createShow')}>Create Show</button>
         </li>
         <li>
           <button onClick={ () => handleNavigation('/editShow')}>Edit Shows</button>
+        </li>
+        <li>
+          <button onClick={ () => handleNavigation('/createVenue')}>Create Venue</button>
         </li>
         <li>
           <button onClick={ () => handleNavigation('/editVenue')}>Edit Venue</button>

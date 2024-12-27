@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import VenueForm from '../venue-form/venue-form.component';
 import moment from 'moment-timezone';
 import { useNavigate } from 'react-router-dom';
 
 const ShowForm = ({shows}) => {
   const navigate = useNavigate();
-  const [isCreatingNewVenue, setIsCreatingNewVenue] = useState(false);
   const [showData, setShowData] = useState({
     title:'',
     description:'',
@@ -16,36 +14,20 @@ const ShowForm = ({shows}) => {
     venue_id:''
   });
 
-  const [newVenueData, setNewVenueData] = useState({
-    name:'',
-    url_location:'',
-    city:'',
-    country:''
-  });
-
   // useEffect to set default value for venue_id on component mount
   useEffect(() => {
-    if (shows.length > 0 && !isCreatingNewVenue) {
+    if (shows.length > 0) {
       setShowData(prevShowData => ({
         ...prevShowData,
         venue_id: shows[0].venue.id // Set the first venue ID as default
       }));
     }
-  }, [shows, isCreatingNewVenue]);
-
-  const handleCheckboxChange = (event) => {
-    setIsCreatingNewVenue(event.target.checked);
-  };
+  }, [shows]);
 
   const handleShowChange = (event) => {
     const { name, value } = event.target;
     setShowData({ ...showData, [name]: value });
     console.log(showData)
-  };
-
-  const handleVenueChange = (event) => {
-    const { name, value } = event.target;
-    setNewVenueData({ ...newVenueData, [name]: value });
   };
 
   const handleSubmit = (event) => {
@@ -58,10 +40,6 @@ const ShowForm = ({shows}) => {
       ...showData,
       event_date: utcEventDate,
     };
-
-    if (isCreatingNewVenue) {
-      showPayload.new_venue = newVenueData;
-    }
 
     fetch('http://localhost:3001/shows', {
       method: 'POST',
@@ -130,7 +108,7 @@ const ShowForm = ({shows}) => {
 
         <div>
           <label htmlFor="venue">Choose Venue: </label>
-          <select name="venue_id" id="venue" value={showData.venue_id} onChange={handleShowChange} disabled={isCreatingNewVenue}>
+          <select name="venue_id" id="venue" value={showData.venue_id} onChange={handleShowChange}>
 
             {uniqueVenues.map((venue) => (
                 <option key={venue.id} value={venue.id}>
@@ -139,19 +117,6 @@ const ShowForm = ({shows}) => {
               ))}
           </select>
         </div>
-        <div>
-        <input
-              type="checkbox"
-              id="createNewVenue"
-              name="createNewVenue"
-              checked={isCreatingNewVenue}
-              onChange={handleCheckboxChange}
-            />
-            <label htmlFor="createNewVenue">Create New Venue</label>
-        </div>
-        {isCreatingNewVenue && (
-          <VenueForm venueData={newVenueData} handleVenueChange={handleVenueChange} />
-        )}
         <div>
           <button type="submit">Create Show</button>
         </div>
